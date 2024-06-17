@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About ShopWave{% endblock title %}
+
+{% block content %}
+<div class="about-section">
+    <h1>About Us</h1>
+    <div class="about-description">
+        <p>ShopWave is a cutting-edge e-commerce platform powered by:
+            <span class="tech-icon"><img src="{% static 'python.png' %}" alt="Python Logo" style="height: 30px; vertical-align: middle;"> Python</span>,
+            <span class="tech-icon"><img src="{% static 'django.png' %}" alt="Django Logo" style="height: 30px; vertical-align: middle;"> Django</span>, and
+            <span class="tech-icon"><img src="{% static 'html.png' %}" alt="HTML Logo" style="height: 30px; vertical-align: middle;"> HTML</span>
+        </p>
+        <p>Aimed at delivering a seamless online shopping experience. Built on robust technologies, ShopWave combines the versatility of Python, the efficiency of Django, and the flexibility of HTML to create a dynamic and responsive web application.</p>
+    </div>
+</div>
+
+<section class="key-section">
+    <h2 class="section-title">Key Technologies and Objectives</h2>
+    <ul>
+        <li><strong>Python Backend:</strong> Leveraging Python's scalability and readability for high performance and maintainability.</li>
+        <li><strong>Django Framework:</strong> Utilizing Django's MVC architecture for rapid development, secure authentication, and seamless database management.</li>
+        <li><strong>HTML Frontend:</strong> Crafting responsive and engaging user interfaces across devices.</li>
+    </ul>
+</section>
+
+<section class="features-section">
+    <h2 class="section-title">Goals and Features</h2>
+    <ul>
+        <li><strong>Enhanced User Experience:</strong> Simplifying online shopping with intuitive navigation and personalized dashboards.</li>
+        <li><strong>Efficient Product Management:</strong> Streamlining product uploads and updates through a user-friendly admin panel.</li>
+        <li><strong>Secure Transactions:</strong> Ensuring robust security measures to protect user data and transactions.</li>
+        <li><strong>Scalability and Growth:</strong> Supporting business growth with flexible architecture and adaptable features.</li>
+    </ul>
+</section>
+
+<div class="call-to-action">
+    <p>Experience the future of e-commerce with ShopWave, where advanced technology meets seamless shopping solutions. Join us in transforming digital commerce with innovation and efficiency!</p>
+</div>
+{% endblock content %}
