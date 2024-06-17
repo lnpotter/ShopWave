@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import ListView
 
 from .forms import EditItemForm, NewItemForm
 from .models import Item
@@ -22,7 +23,6 @@ def new_item(request):
         form = NewItemForm()
     return render(request, "item/form.html", {"form": form, "title": "New item"})
 
-
 @login_required
 def delete(request, pk):
     item = get_object_or_404(Item, pk=pk, created_by=request.user)
@@ -41,3 +41,14 @@ def edit(request, pk):
     else:
         form = EditItemForm(instance=item)
     return render(request, "item/form.html", {"form": form, "title": "Edit item"})
+
+class ItemSearchView(ListView):
+    model = Item
+    template_name = 'item_search_results.html'
+    context_object_name = 'item_list'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Item.objects.filter(name__icontains=query)
+        return Item.objects.none()
