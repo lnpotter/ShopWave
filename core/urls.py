@@ -1,21 +1,37 @@
-from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
-
-from . import views
-from .forms import LoginForm
-
-from item.views import ItemSearchView
+from .views import (
+    ItemDetailView,
+    CheckoutView,
+    HomeView,
+    OrderSummaryView,
+    add_to_cart,
+    remove_from_cart,
+    remove_single_item_from_cart,
+    search_products,
+    PaymentView,
+    AddCouponView,
+    RequestRefundView
+)
 
 app_name = "core"
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("about/", views.about, name="about"),
-    path("contact/", views.contact, name="contact"),
-    path("signup/", views.signup, name="signup"),
-    path("terms/", views.terms, name="terms"),
-    path("policy/", views.policy, name="policy"),
-    path('search/', ItemSearchView.as_view(), name='search'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path("login/", auth_views.LoginView.as_view(authentication_form=LoginForm), name="login")
+    path("", HomeView.as_view(), name="home"),
+    path('search/', search_products, name='search_products'),
+    path("checkout/", CheckoutView.as_view(), name="checkout"),
+    path("order-summary/", OrderSummaryView.as_view(), name="order-summary"),
+    path("product/<slug>/", ItemDetailView.as_view(), name="product"),
+    path("add-to-cart/<slug>/", add_to_cart, name="add-to-cart"),
+    path("add-coupon/", AddCouponView.as_view(), name="add-coupon"),
+    path("remove-from-cart/<slug>/", remove_from_cart, name="remove-from-cart"),
+    path("remove-item-from-cart/<slug>/", remove_single_item_from_cart,
+         name="remove-single-item-from-cart"),
+    path("payment/<payment_option>/", PaymentView.as_view(), name="payment"),
+    path("request-refund/", RequestRefundView.as_view(), name="request-refund")
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
