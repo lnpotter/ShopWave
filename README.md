@@ -13,4 +13,4 @@ ShopWave is a robust Full-Stack e-commerce application built with Django, design
 ## Tech Stack
 * Backend: Django, Django REST framework
 * Frontend: HTML, CSS, SCSS, Javascript
-* Database: SQLite (Development), PostgreSQL/MySQL (Production)
+* Database: SQLite
