@@ -3,56 +3,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock title %} - ShopWave</title>
-    <link rel="stylesheet" href="{% static 'css/about_page.css' %}">
-    <link rel="stylesheet" href="{% static 'css/contact_page.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-<nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
-    <a href="/" class="text-xl font-semibold">ShopWave</a>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{% block head_title %}{% endblock %}</title>
+  {% block extra_head %}
+  {% endblock %}
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
 
-    <div class="space-x-6">
-        <a href="{% url 'item:new_item' %}" class="text-lg font-semibold hover:text-gray-500">New Item</a>
-        <form action="{% url 'core:search' %}" method="get" class="inline-block">
-            <input type="text" name="q" placeholder="Search..." class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-teal-500">
-            <button type="submit" class="ml-2 px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-700">Search</button>
-        </form>
-        {% if request.user.is_authenticated %}
-            <form action="{% url 'core:logout' %}" method="post" class="inline-block">
-                {% csrf_token %}
-                <button type="submit" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Logout</button>
-            </form>
-            <a href="{% url 'dashboard:index' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Dashboard</a>
-        {% else %}
-            <a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign Up</a>
-            <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log In</a>
-        {% endif %}
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+  </style>
+</head>
+
+{% include "navbar.html" %}
+
+<body>
+    <div class="mt-5 pt-4">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
+    {% endif %}
     </div>
-</nav>
-<div class="px-6 py-6">
+
     {% block content %}
     {% endblock content %}
-</div>
 
-<footer class="px-6 py-6 flex justify-between bg-gray-800">
-    <div class="w-2/3 pr-10">
-        <h3 class="mb-5 font-semibold text-gray-400">About</h3>
-        <p class="text-lg text-gray-500">ShopWave is a robust Full-Stack e-commerce application built with Django, designed to revolutionize the online shopping experience. With an intuitive interface and a suite of powerful features, ShopWave is the ultimate solution for businesses looking to expand their digital presence.</p>
-    </div>
-    <div class="w-1/3">
-        <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
-        <ul class="space-y-2">
-            <li><a href="{% url 'core:about' %}" class="text-lg text-teal-500 hover:text-teal-700">About</a></li>
-            <li><a href="{% url 'core:contact' %}" class="text-lg text-teal-500 hover:text-teal-700">Contact</a></li>
-            <li><a href="{% url 'core:policy' %}" class="text-lg text-teal-500 hover:text-teal-700">Privacy Policy</a></li>
-            <li><a href="{% url 'core:terms' %}" class="text-lg text-teal-500 hover:text-teal-700">Terms of Use</a></li>
-        </ul>
-    </div>
-</footer>
+    {% block extra_body %}
+    {% endblock %}
+
+    {% include "footer.html" %}
+    {% include "scripts.html" %}
+
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
 </body>
 </html>
