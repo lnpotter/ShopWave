@@ -2,7 +2,7 @@ autopep8==2.3.1
 certifi==2024.7.4
 chardet==5.2.0
 defusedxml==0.7.1
-Django==5.0.6
+Django==5.0.7
 django-allauth==0.63.3
 django-countries==7.6.1
 django-crispy-forms==2.2
